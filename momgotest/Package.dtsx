@@ -1,0 +1,1533 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/17/2019 4:04:57 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-MR3EL45"
+  DTS:CreatorName="DESKTOP-MR3EL45\rhard"
+  DTS:DTSID="{87CE5B72-C85C-462A-BB58-783F870AD98D}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1300.375"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="19"
+  DTS:VersionGUID="{CC5D9F21-18AC-43DC-A582-07CC58AA6B26}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-MR3EL45]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{8AB1FCAB-F128-4FA5-AA61-5D41D2B79FDD}"
+      DTS:ObjectName="DESKTOP-MR3EL45">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=DESKTOP-MR3EL45;Initial Catalog=Test1;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MongoDB Connection Manager]"
+      DTS:CreationName="MongoDB (KingswaySoft)"
+      DTS:DTSID="{FDE06BA9-9EE4-454B-BD51-319ECB73139F}"
+      DTS:ObjectName="MongoDB Connection Manager">
+      <DTS:ObjectData>
+        <ConnectionManager
+          ConnectionString="CertificateLocation=FileSystem;CertificateSubject=;PathToCertificate=;IgnoreCertificateErrors=False;AuthenticationDatabase=admin;AuthenticationMode=None;Username=;Hosts=localhost;Ports=27017;ConnectTimeout=30;ConnectionMode=Automatic;GuidRepresentation=CSharpLegacy;HeartbeatInterval=10;HeartbeatTimeout=10;IPv6=False;LocalThreshold=15;MaxConnectionIdleTime=600;MaxConnectionLifeTime=1800;MaxConnectionPoolSize=100;MinConnectionPoolSize=0;ReadConcernLevel=Local;ReadPreferenceMode=Primary;TagSets=;ReplicaSetName=;ServerSelectionTimeout=30;SocketTimeout=0;UseSsl=False;VerifySslCertificate=True;WaitQueueSize=500;WaitQueueTimeout=120;W=;UseSshTunnel=False;SshHost=;SshPort=22;SshAuthenticationType=Password;SshUsername=;SshPathToKeyFile=" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{937C88C7-CD2F-440D-9431-487FBE84557A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task\MongoDB Destination"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="KingswaySoft Inc.; http://www.kingswaysoft.com; support@kingswaysoft.com; Copyright (c) 2011-2018 KingswaySoft Inc."
+              description="Write data to a MongoDB database."
+              name="MongoDB Destination"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The MongoDB database to use."
+                  expressionType="Notify"
+                  name="DestinationDatabase">rhtest1</property>
+                <property
+                  dataType="System.String"
+                  description="The MongoDB collection to use."
+                  expressionType="Notify"
+                  name="DestinationCollection">AirportDelays2</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of documents to send for each Insert."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Will wrap the _id field with the MongoDB ObjectId() method."
+                  expressionType="Notify"
+                  name="FormatIdAsObjectId">true</property>
+                <property
+                  dataType="System.String"
+                  description="Defines what to match documents by for Replace, Update, Upsert, and Delete actions."
+                  expressionType="Notify"
+                  name="FilterString"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies what fields to update and their new values by utilizing the MongoDB '$set' operator."
+                  expressionType="Notify"
+                  name="UpdateString"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="If the FilterString returns more than 1 document, this option will ensure only 1 gets Replaced, Updated, Upserted, or Deleted."
+                  expressionType="Notify"
+                  name="LimitMatchingDocumentsToOne">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Whether use the editor controls to specify the filter and update string for Replace, Update, or Delete actions."
+                  expressionType="Notify"
+                  name="ManualConstructMessage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="The MongoDB write action to perform."
+                  expressionType="Notify"
+                  name="Action"
+                  typeConverter="KingswaySoft.IntegrationToolkit.ProductivityPack.MongoDbAction">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="If no documents match FilterString a new document is created. This can only be enabled for Update and Replace (if LimitMatchingDocumentsToOne is set to true)."
+                  expressionType="Notify"
+                  name="UseUpsert">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Time Zone."
+                  expressionType="Notify"
+                  name="InputTimezone"
+                  typeConverter="KingswaySoft.IntegrationToolkit.ProductivityPack.MongoDb.MongoDbTimeZone, KingswaySoft.IntegrationToolkit.ProductivityPack, Version=1.0.2017.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7">0</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">KingswaySoft.IntegrationToolkit.ProductivityPack.MongoDbDestinationComponent</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\MongoDB Destination.Connections[MongoDB (KingswaySoft)]"
+                  connectionManagerID="Package.ConnectionManagers[MongoDB Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[MongoDB Connection Manager]"
+                  description="MongoDB Connection Manager"
+                  name="MongoDB (KingswaySoft)" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Primary Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].Columns[_id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4000"
+                      cachedName="_id"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[Id]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].Columns[ArrDelay]"
+                      cachedDataType="i4"
+                      cachedName="ArrDelay"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[ArrDelay]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[ArrDelay]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].Columns[CRSDepTime]"
+                      cachedDataType="i4"
+                      cachedName="CRSDepTime"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[CRSDepTime]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[CRSDepTime]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].Columns[UniqueCarrier]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4000"
+                      cachedName="UniqueCarrier"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[UniqueCarrier]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[UniqueCarrier]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].Columns[Origin]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4000"
+                      cachedName="Origin"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[Origin]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[Origin]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].Columns[Dest]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4000"
+                      cachedName="Dest"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[Dest]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[Dest]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].Columns[Date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Date"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[Date]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[Date]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[Id]"
+                      codePage="65001"
+                      dataType="str"
+                      length="255"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[ArrDelay]"
+                      dataType="i4"
+                      name="ArrDelay" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[CRSDepTime]"
+                      dataType="i4"
+                      name="CRSDepTime" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[UniqueCarrier]"
+                      codePage="65001"
+                      dataType="str"
+                      length="255"
+                      name="UniqueCarrier" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[Origin]"
+                      codePage="65001"
+                      dataType="str"
+                      length="255"
+                      name="Origin" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[Dest]"
+                      codePage="65001"
+                      dataType="str"
+                      name="Dest" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input].ExternalColumns[Date]"
+                      dataType="date"
+                      name="Date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\MongoDB Destination.Outputs[Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error Output"
+                  synchronousInputId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Outputs[Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\MongoDB Destination.Outputs[Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Outputs[Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\MongoDB Destination.Outputs[Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\MongoDB Destination.Outputs[Error Output].Columns[ErrorMessage]"
+                      dataType="wstr"
+                      length="2048"
+                      lineageId="Package\Data Flow Task\MongoDB Destination.Outputs[Error Output].Columns[ErrorMessage]"
+                      name="ErrorMessage" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\MongoDB Destination.Outputs[DefaultOutput]"
+                  exclusionGroup="1"
+                  name="DefaultOutput"
+                  synchronousInputId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\MongoDB Source"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="KingswaySoft Inc.; http://www.kingswaysoft.com; support@kingswaysoft.com; Copyright (c) 2011-2018 KingswaySoft Inc."
+              description="Read data from a MongoDB database."
+              name="MongoDB Source"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The MongoDB database to use."
+                  expressionType="Notify"
+                  name="SourceDatabase">rhtest1</property>
+                <property
+                  dataType="System.String"
+                  description="The MongoDB collection to use."
+                  expressionType="Notify"
+                  name="SourceCollection">AirportDelays</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Removes the 'ObjectId' prefix and parenthesis from the _id field."
+                  expressionType="Notify"
+                  name="ConvertObjectIdToString">true</property>
+                <property
+                  dataType="System.String"
+                  description="Filters the documents returned from the selected Collection."
+                  expressionType="Notify"
+                  name="FilterString"></property>
+                <property
+                  dataType="System.String"
+                  description="Filters the keys returned in each document."
+                  expressionType="Notify"
+                  name="ProjectionString"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Output as Json document."
+                  expressionType="Notify"
+                  name="OutputAsJson">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Time Zone."
+                  expressionType="Notify"
+                  name="OutputTimezone"
+                  typeConverter="KingswaySoft.IntegrationToolkit.ProductivityPack.MongoDb.MongoDbTimeZone, KingswaySoft.IntegrationToolkit.ProductivityPack, Version=1.0.2017.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Source Type."
+                  expressionType="Notify"
+                  name="SourceType"
+                  typeConverter="KingswaySoft.IntegrationToolkit.ProductivityPack.MongoDbSourceType">0</property>
+                <property
+                  dataType="System.String"
+                  description="Only returns change streams whose operation type matches one of the types specified."
+                  expressionType="Notify"
+                  name="OperationTypes"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies if the value of the Input Variable is a datetime or a resume after token."
+                  expressionType="Notify"
+                  name="InputVariableType">1</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a variable to use for getting change streams since a particular time or change stream (depending on the value of 'Input Variable Type')."
+                  expressionType="Notify"
+                  name="InputVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a variable to write the resume after token of the last change stream read."
+                  expressionType="Notify"
+                  name="OutputVariable"></property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">KingswaySoft.IntegrationToolkit.ProductivityPack.MongoDbSourceComponent</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\MongoDB Source.Connections[MongoDB (KingswaySoft)]"
+                  connectionManagerID="Package.ConnectionManagers[MongoDB Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[MongoDB Connection Manager]"
+                  description="MongoDB Connection Manager"
+                  name="MongoDB (KingswaySoft)" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output]"
+                  name="Default Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[ArrDelay]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[ArrDelay]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[ArrDelay]"
+                      name="ArrDelay"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[CRSDepTime]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[CRSDepTime]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[CRSDepTime]"
+                      name="CRSDepTime"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[UniqueCarrier]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[UniqueCarrier]"
+                      length="4000"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[UniqueCarrier]"
+                      name="UniqueCarrier"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[Origin]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[Origin]"
+                      length="4000"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[Origin]"
+                      name="Origin"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[Dest]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[Dest]"
+                      length="4000"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[Dest]"
+                      name="Dest"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[Date]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[Date]"
+                      name="Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[_id]"
+                      length="4000"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[_id]"
+                      name="_id"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[ArrDelay]"
+                      dataType="i4"
+                      name="ArrDelay">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="ExternalColumnSelected"
+                          name="ExternalColumnSelected">true</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[CRSDepTime]"
+                      dataType="i4"
+                      name="CRSDepTime">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="ExternalColumnSelected"
+                          name="ExternalColumnSelected">true</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[UniqueCarrier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4000"
+                      name="UniqueCarrier">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="ExternalColumnSelected"
+                          name="ExternalColumnSelected">true</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[Origin]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4000"
+                      name="Origin">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="ExternalColumnSelected"
+                          name="ExternalColumnSelected">true</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[Dest]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4000"
+                      name="Dest">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="ExternalColumnSelected"
+                          name="ExternalColumnSelected">true</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[Date]"
+                      dataType="dbTimeStamp"
+                      name="Date">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="ExternalColumnSelected"
+                          name="ExternalColumnSelected">true</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].ExternalColumns[_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4000"
+                      name="_id">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="ExternalColumnSelected"
+                          name="ExternalColumnSelected">true</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Multicast"
+              componentClassID="Microsoft.Multicast"
+              contactInfo="Multicast;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Distributes every input row to every row in one or more outputs. For example, branch your data flow to make a copy of data so that some values can be masked before sharing with external partners."
+              name="Multicast">
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Multicast.Inputs[Multicast Input 1]"
+                  name="Multicast Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Multicast.Outputs[Multicast Output 1]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 1"
+                  synchronousInputId="Package\Data Flow Task\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Multicast.Outputs[Multicast Output 2]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 2"
+                  synchronousInputId="Package\Data Flow Task\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Multicast.Outputs[Multicast Output 3]"
+                  dangling="true"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 3"
+                  synchronousInputId="Package\Data Flow Task\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[AirportDelaysMG]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-MR3EL45]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-MR3EL45]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Dest]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4000"
+                      cachedName="Dest"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Dest]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[Dest]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[UniqueCarrier]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4000"
+                      cachedName="UniqueCarrier"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Carrier]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[UniqueCarrier]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[_id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4000"
+                      cachedName="_id"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IDD]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ArrDelay]"
+                      cachedDataType="i4"
+                      cachedName="ArrDelay"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ArrDelay]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[ArrDelay]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CRSDepTime]"
+                      cachedDataType="i4"
+                      cachedName="CRSDepTime"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CRSDelay]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[CRSDepTime]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Origin]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4000"
+                      cachedName="Origin"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Source]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[Origin]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Date"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DDate]"
+                      lineageId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output].Columns[Date]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Carrier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Carrier" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Dest]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Dest" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IDD]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="IDD" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ArrDelay]"
+                      dataType="i4"
+                      name="ArrDelay" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CRSDelay]"
+                      dataType="i4"
+                      name="CRSDelay" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Source]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Source" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DDate]"
+                      dataType="dbDate"
+                      name="DDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task.Paths[Default Output]"
+              endId="Package\Data Flow Task\Multicast.Inputs[Multicast Input 1]"
+              name="Default Output"
+              startId="Package\Data Flow Task\MongoDB Source.Outputs[Default Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Multicast Output 1]"
+              endId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Multicast Output 1"
+              startId="Package\Data Flow Task\Multicast.Outputs[Multicast Output 1]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Multicast Output 2]"
+              endId="Package\Data Flow Task\MongoDB Destination.Inputs[Primary Input]"
+              name="Multicast Output 2"
+              startId="Package\Data Flow Task\Multicast.Outputs[Multicast Output 2]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task 1"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{BC3FBBE0-BEB1-48C0-900D-C7D9C7ACA679}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task 1"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task 1\MongoDB Destination 1"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="KingswaySoft Inc.; http://www.kingswaysoft.com; support@kingswaysoft.com; Copyright (c) 2011-2018 KingswaySoft Inc."
+              description="Write data to a MongoDB database."
+              name="MongoDB Destination 1"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The MongoDB database to use."
+                  expressionType="Notify"
+                  name="DestinationDatabase">rhtest1</property>
+                <property
+                  dataType="System.String"
+                  description="The MongoDB collection to use."
+                  expressionType="Notify"
+                  name="DestinationCollection">AirportDelaysMG</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of documents to send for each Insert."
+                  expressionType="Notify"
+                  name="BatchSize">1000</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Will wrap the _id field with the MongoDB ObjectId() method."
+                  expressionType="Notify"
+                  name="FormatIdAsObjectId">true</property>
+                <property
+                  dataType="System.String"
+                  description="Defines what to match documents by for Replace, Update, Upsert, and Delete actions."
+                  expressionType="Notify"
+                  name="FilterString"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies what fields to update and their new values by utilizing the MongoDB '$set' operator."
+                  expressionType="Notify"
+                  name="UpdateString"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="If the FilterString returns more than 1 document, this option will ensure only 1 gets Replaced, Updated, Upserted, or Deleted."
+                  expressionType="Notify"
+                  name="LimitMatchingDocumentsToOne">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Whether use the editor controls to specify the filter and update string for Replace, Update, or Delete actions."
+                  expressionType="Notify"
+                  name="ManualConstructMessage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="The MongoDB write action to perform."
+                  expressionType="Notify"
+                  name="Action"
+                  typeConverter="KingswaySoft.IntegrationToolkit.ProductivityPack.MongoDbAction">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="If no documents match FilterString a new document is created. This can only be enabled for Update and Replace (if LimitMatchingDocumentsToOne is set to true)."
+                  expressionType="Notify"
+                  name="UseUpsert">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Time Zone."
+                  expressionType="Notify"
+                  name="InputTimezone"
+                  typeConverter="KingswaySoft.IntegrationToolkit.ProductivityPack.MongoDb.MongoDbTimeZone, KingswaySoft.IntegrationToolkit.ProductivityPack, Version=1.0.2017.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7">0</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">KingswaySoft.IntegrationToolkit.ProductivityPack.MongoDbDestinationComponent</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\MongoDB Destination 1.Connections[MongoDB (KingswaySoft)]"
+                  connectionManagerID="Package.ConnectionManagers[MongoDB Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[MongoDB Connection Manager]"
+                  description="MongoDB Connection Manager"
+                  name="MongoDB (KingswaySoft)" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Primary Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].Columns[ArrDelay]"
+                      cachedDataType="i4"
+                      cachedName="ArrDelay"
+                      externalMetadataColumnId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[ArrDelay]"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[ArrDelay]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].Columns[Dest]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="Dest"
+                      externalMetadataColumnId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[Dest]"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[Dest]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].Columns[CRSDelay]"
+                      cachedDataType="i4"
+                      cachedName="CRSDelay"
+                      externalMetadataColumnId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[CRSDepTime]"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[CRSDelay]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].Columns[Source]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="Source"
+                      externalMetadataColumnId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[Origin]"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[Source]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].Columns[DDate]"
+                      cachedDataType="dbDate"
+                      cachedName="DDate"
+                      externalMetadataColumnId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[Date]"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[DDate]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].Columns[IDD]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="IDD"
+                      externalMetadataColumnId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[Id]"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[IDD]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].Columns[Carrier]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="Carrier"
+                      externalMetadataColumnId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[UniqueCarrier]"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[Carrier]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[_id]"
+                      dataType="wstr"
+                      length="4000"
+                      name="_id">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          name="IsConditionalField">false</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[Id]"
+                      dataType="wstr"
+                      length="80"
+                      name="Id">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          name="IsConditionalField">false</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[ArrDelay]"
+                      dataType="i4"
+                      name="ArrDelay">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          name="IsConditionalField">false</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[CRSDepTime]"
+                      dataType="i4"
+                      name="CRSDepTime">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          name="IsConditionalField">false</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[UniqueCarrier]"
+                      dataType="wstr"
+                      length="40"
+                      name="UniqueCarrier">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          name="IsConditionalField">false</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[Origin]"
+                      dataType="wstr"
+                      length="20"
+                      name="Origin">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          name="IsConditionalField">false</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[Dest]"
+                      dataType="wstr"
+                      length="20"
+                      name="Dest">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          name="IsConditionalField">false</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input].ExternalColumns[Date]"
+                      dataType="dbTimeStamp"
+                      name="Date">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          name="IsConditionalField">false</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\MongoDB Destination 1.Outputs[Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error Output"
+                  synchronousInputId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Outputs[Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\MongoDB Destination 1.Outputs[Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Outputs[Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\MongoDB Destination 1.Outputs[Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\MongoDB Destination 1.Outputs[Error Output].Columns[ErrorMessage]"
+                      dataType="wstr"
+                      length="2048"
+                      lineageId="Package\Data Flow Task 1\MongoDB Destination 1.Outputs[Error Output].Columns[ErrorMessage]"
+                      name="ErrorMessage" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task 1\MongoDB Destination 1.Outputs[DefaultOutput]"
+                  exclusionGroup="1"
+                  name="DefaultOutput"
+                  synchronousInputId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task 1\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[AirportDelaysMG]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-MR3EL45]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-MR3EL45]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[IDD]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IDD]"
+                      length="250"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[IDD]"
+                      name="IDD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[ArrDelay]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ArrDelay]"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[ArrDelay]"
+                      name="ArrDelay"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[CRSDelay]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CRSDelay]"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[CRSDelay]"
+                      name="CRSDelay"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[Carrier]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Carrier]"
+                      length="250"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[Carrier]"
+                      name="Carrier"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[Source]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Source]"
+                      length="250"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[Source]"
+                      name="Source"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[Dest]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Dest]"
+                      length="250"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[Dest]"
+                      name="Dest"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[DDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DDate]"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].Columns[DDate]"
+                      name="DDate"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IDD]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="IDD" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ArrDelay]"
+                      dataType="i4"
+                      name="ArrDelay" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CRSDelay]"
+                      dataType="i4"
+                      name="CRSDelay" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Carrier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Carrier" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Source]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Source" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Dest]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Dest" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DDate]"
+                      dataType="dbDate"
+                      name="DDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IDD]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IDD]"
+                      name="IDD" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ArrDelay]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ArrDelay]"
+                      name="ArrDelay" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CRSDelay]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CRSDelay]"
+                      name="CRSDelay" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Carrier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Carrier]"
+                      name="Carrier" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Source]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Source]"
+                      name="Source" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Dest]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Dest]"
+                      name="Dest" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DDate]"
+                      name="DDate" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task 1.Paths[OLE DB Source Output]"
+              endId="Package\Data Flow Task 1\MongoDB Destination 1.Inputs[Primary Input]"
+              name="OLE DB Source Output"
+              startId="Package\Data Flow Task 1\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{B2293985-E9E2-4E54-8EFF-E17C3FBA72F8}"
+      DTS:From="Package\Data Flow Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Data Flow Task 1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Data Flow Task"
+          TopLeft="5.5,5.5" />
+        <NodeLayout
+          Size="164,42"
+          Id="Package\Data Flow Task 1"
+          TopLeft="123,133" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="81,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="124,85.5"
+              Start="0,0"
+              End="124,78">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,38.75"
+                    Point2="0,42.75"
+                    Point3="4,42.75" />
+                  <mssgle:LineSegment
+                    End="120,42.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="120,42.75"
+                    Point2="124,42.75"
+                    Point3="124,46.75" />
+                  <mssgle:LineSegment
+                    End="124,78" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="177,42"
+          Id="Package\Data Flow Task\OLE DB Destination"
+          TopLeft="168,261" />
+        <NodeLayout
+          Size="120,42"
+          Id="Package\Data Flow Task\Multicast"
+          TopLeft="187,158" />
+        <NodeLayout
+          Size="186,42"
+          Id="Package\Data Flow Task\MongoDB Destination"
+          TopLeft="642,157" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\Data Flow Task\MongoDB Source"
+          TopLeft="169,69" />
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Multicast Output 2]"
+          TopLeft="307,178.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="335,0"
+              Start="0,0"
+              End="327.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="327.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Multicast Output 1]"
+          TopLeft="247,200">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9.5,61"
+              Start="0,0"
+              End="9.5,53.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.5"
+                    Point2="0,30.5"
+                    Point3="4,30.5" />
+                  <mssgle:LineSegment
+                    End="5.5,30.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5.5,30.5"
+                    Point2="9.5,30.5"
+                    Point3="9.5,34.5" />
+                  <mssgle:LineSegment
+                    End="9.5,53.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Default Output]"
+          TopLeft="249.5,111">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Data Flow Task 1">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Data Flow Task 1\OLE DB Source"
+          TopLeft="239,146" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Data Flow Task 1\MongoDB Destination 1"
+          TopLeft="553,140" />
+        <EdgeLayout
+          Id="Package\Data Flow Task 1.Paths[OLE DB Source Output]"
+          TopLeft="396,164">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="157,0"
+              Start="0,0"
+              End="149.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="149.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task 1\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
